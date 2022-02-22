@@ -12,8 +12,8 @@ import { useSpotify } from "../hooks/useSpotify";
 import { playlistIdState } from "../atoms/playlistAtom";
 import { useRecoilState } from "recoil";
 
-const Sidebar = () => {
-  const { data: session, status } = useSession();
+export const Sidebar = () => {
+  const { data: session } = useSession();
   const [playlist, setPlaylist] = useState([]);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
   const spotifyApi = useSpotify();
@@ -22,23 +22,13 @@ const Sidebar = () => {
     if (spotifyApi.getAccessToken()) {
       spotifyApi.getUserPlaylists().then((data) => {
         setPlaylist(data.body.items);
-        console.log(data.body);
       });
     }
   }, [session, spotifyApi]);
 
-  console.log(playlist);
-  console.log("you picked", playlistId);
-
   return (
     <div className='text-gray-500 p-5 text-xs lg:text-sm border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex'>
       <div className='space-y-4'>
-        <button
-          className='flex items-center hover:text-white space-x-2'
-          onClick={() => signOut()}
-        >
-          <p>Log Out</p>
-        </button>
         <button className='flex items-center hover:text-white space-x-2'>
           <HomeIcon className='h-5 w-5' />
           <p>Home</p>
@@ -81,5 +71,3 @@ const Sidebar = () => {
     </div>
   );
 };
-
-export default Sidebar;

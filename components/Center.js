@@ -1,14 +1,15 @@
 import { ChevronDownIcon } from "@heroicons/react/outline";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { shuffle } from "lodash";
 import { useState, useEffect } from "react";
 import { playlistIdState, selectedPlaylist } from "../atoms/playlistAtom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import spotifyApi from "../lib/spotify";
+import { useSpotify } from "../hooks/useSpotify";
 import { Songs } from "./Songs";
 
 export const Center = () => {
   const { data: session } = useSession();
+  const spotifyApi = useSpotify();
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(selectedPlaylist);
@@ -39,7 +40,7 @@ export const Center = () => {
 
   return (
     <div className='flex-grow h-screen overflow-y-scroll scrollbar-hide'>
-      <header className='top-5 right-8 absolute'>
+      <header className='top-5 right-8 absolute' onClick={signOut}>
         <div className='flex bg-black text-white items-center space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2'>
           <img
             className='rounded-full w-10 h-10'
@@ -62,7 +63,9 @@ export const Center = () => {
           <h1 className='text-2xl md:text-3xl xl:text-4xl'>{playlist.name}</h1>
         </div>
       </section>
-      <Songs />
+      <div>
+        <Songs />
+      </div>
     </div>
   );
 };
