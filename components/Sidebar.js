@@ -27,7 +27,7 @@ export const Sidebar = () => {
   }, [session, spotifyApi]);
 
   return (
-    <div className='text-gray-500 p-5 text-xs lg:text-sm border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex'>
+    <div className='text-gray-500 p-5 text-xs lg:text-sm border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-30'>
       <div className='space-y-4'>
         <button className='flex items-center hover:text-white space-x-2'>
           <HomeIcon className='h-5 w-5' />
@@ -64,7 +64,7 @@ export const Sidebar = () => {
             }}
             className='cursor-pointer hover:text-white'
           >
-            {p.name.substring(0, 22)}
+            {p.name}
           </p>
         ))}
       </div>

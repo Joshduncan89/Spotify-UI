@@ -5,7 +5,7 @@ import Player from "../components/Player";
 
 export default function Home() {
   return (
-    <div className='bg-black min-h-screen overflow-hidden scrollbar-hide'>
+    <div className='bg-black h-screen overflow-hidden scrollbar-hide'>
       <main className='flex'>
         <Sidebar />
         <Center />
