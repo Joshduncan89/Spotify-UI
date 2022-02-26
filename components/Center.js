@@ -3,9 +3,10 @@ import { signOut, useSession } from "next-auth/react";
 import { shuffle } from "lodash";
 import { useState, useEffect } from "react";
 import { playlistIdState, selectedPlaylist } from "../atoms/playlistAtom";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useSpotify } from "../hooks/useSpotify";
 import { Songs } from "./Songs";
+import { currentTrackState } from "../atoms/songAtom";
 
 export const Center = () => {
   const { data: session } = useSession();
@@ -13,6 +14,7 @@ export const Center = () => {
   const [color, setColor] = useState(null);
   const playlistId = useRecoilValue(playlistIdState);
   const [playlist, setPlaylist] = useRecoilState(selectedPlaylist);
+  const [trackId] = useRecoilState(currentTrackState);
 
   const colors = [
     "from-indigo-500",
@@ -27,7 +29,7 @@ export const Center = () => {
 
   useEffect(() => {
     setColor(shuffle(colors).pop());
-  }, [playlistId]);
+  }, [playlistId, trackId]);
 
   useEffect(() => {
     spotifyApi

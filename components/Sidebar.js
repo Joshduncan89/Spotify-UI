@@ -15,6 +15,7 @@ import { useRecoilState } from "recoil";
 export const Sidebar = () => {
   const { data: session } = useSession();
   const [playlist, setPlaylist] = useState([]);
+  // const [songs, setSongs] = useState([]);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
   const spotifyApi = useSpotify();
 
