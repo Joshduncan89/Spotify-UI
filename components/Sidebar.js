@@ -14,7 +14,7 @@ import { useRecoilState } from "recoil";
 
 export const Sidebar = () => {
   const { data: session } = useSession();
-  const [playlist, setPlaylist] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
   // const [songs, setSongs] = useState([]);
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
   const spotifyApi = useSpotify();
@@ -22,7 +22,7 @@ export const Sidebar = () => {
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {
       spotifyApi.getUserPlaylists().then((data) => {
-        setPlaylist(data.body.items);
+        setPlaylists(data.body.items);
       });
     }
   }, [session, spotifyApi]);
@@ -57,7 +57,7 @@ export const Sidebar = () => {
           <p>Library</p>
         </button>
         <hr className='border-t-[.01px] border-gray-900' />
-        {playlist.map((p) => (
+        {playlists.map((p) => (
           <p
             key={p.id}
             onClick={() => {
